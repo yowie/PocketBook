@@ -3,6 +3,9 @@ import requests
 import yagmail
 import ebooklib
 from ebooklib import epub
+#import polyglot
+#from polyglot import ebook
+
 
 
 api_base_url = "https://getpocket.com/v3/get"
@@ -56,7 +59,6 @@ def do_save_config():
     with open('config.json', 'w') as outfile:
         json.dump(pocket_conf, outfile)
 
-
 def do_create_epub():
     book = epub.EpubBook()
 
@@ -100,12 +102,12 @@ def do_create_epub():
 
 def do_send_to_kindle():
 
-yag = yagmail.SMTP('pocketbookindle@gmail.com')
-contents = [
-    "This is the body, and here is just text http://somedomain/image.png",
-    "You can find an audio file attached.", 'test.epub'
-]
-yag.send(kindle_conf['email'], 'subject', contents)
+    yag = yagmail.SMTP('pocketbookindle@gmail.com')
+    contents = [
+        "This is the body, and here is just text http://somedomain/image.png",
+        "You can find an audio file attached.", 'test.epub'
+    ]
+    yag.send(kindle_conf['email'], 'subject', contents)
 
 
 do_load_config()
@@ -114,5 +116,6 @@ if not 'access_token' in pocket_conf:
     do_auth_redirect()
     do_convert_auth_token()
 do_get_articles()
-do_create_epub()
+do_create_mobi()
+#do_create_epub()
 #do_send_to_kindle()
